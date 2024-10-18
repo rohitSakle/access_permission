@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class access_permission extends Model {
+  class category extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  access_permission.init(
+  category.init(
     {
       id: {
         allowNull: false,
@@ -19,37 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      moduleId: {
-        type: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.ENUM("electronic", "elctric", "food", "medicen"),
         allowNull: false,
-        references: {
-          model: "modules",
-          key: "id",
-        },
-        field: "module_id",
-      },
-      roleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "roles",
-          key: "id",
-        },
-        field: "role_id",
-      },
-      accessId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "accesses",
-          key: "id",
-        },
-        field: "access_id",
-      },
-      status: {
-        type: DataTypes.ENUM("active", "inactive"),
-        allowNull: false,
-        defaultValue: "active",
+        defaultValue: "food",
       },
       createdAt: {
         allowNull: false,
@@ -69,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "access_permission",
+      modelName: "category",
       paranoid: true,
       timestamps: true,
     }
   );
-  return access_permission;
+  return category;
 };

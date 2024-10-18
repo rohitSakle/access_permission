@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class access_permission extends Model {
+  class product extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  access_permission.init(
+  product.init(
     {
       id: {
         allowNull: false,
@@ -19,37 +19,32 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      moduleId: {
+      name: {
+        type: DataTypes.STRING(150),
+        allowNull: false,
+      },
+      amount: {
+        type: DataTypes.FLOAT(10, 2),
+        defaultValue: 0.0,
+        allowNull: false,
+      },
+      categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "modules",
+          model: "categories",
           key: "id",
         },
-        field: "module_id",
+        field: "category_id",
       },
-      roleId: {
+      sellerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "roles",
+          model: "accounts",
           key: "id",
         },
-        field: "role_id",
-      },
-      accessId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "accesses",
-          key: "id",
-        },
-        field: "access_id",
-      },
-      status: {
-        type: DataTypes.ENUM("active", "inactive"),
-        allowNull: false,
-        defaultValue: "active",
+        field: "seller_id",
       },
       createdAt: {
         allowNull: false,
@@ -69,10 +64,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "access_permission",
+      modelName: "product",
       paranoid: true,
       timestamps: true,
     }
   );
-  return access_permission;
+  return product;
 };

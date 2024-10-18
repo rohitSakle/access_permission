@@ -2,44 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("access_permissions", {
+    await queryInterface.createTable("purchases", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      moduleId: {
+      productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "modules",
+          model: "products",
           key: "id",
         },
-        field: "module_id",
+        field: "product_id",
       },
-      roleId: {
+      buyerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "roles",
+          model: "accounts",
           key: "id",
         },
-        field: "role_id",
-      },
-      accessId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "accesses",
-          key: "id",
-        },
-        field: "access_id",
-      },
-      status: {
-        type: Sequelize.ENUM("active", "inactive"),
-        allowNull: false,
-        defaultValue: "active",
+        field: "buyer_id",
       },
       createdAt: {
         allowNull: false,
@@ -59,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("access_permissions");
+    await queryInterface.dropTable("purchases");
   },
 };
