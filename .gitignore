@@ -1,0 +1,8 @@
+.env.prod
+.env.dev 
+.env.local
+.sequelizerc
+nodemon.json
+node_modules
+package-lock.json
+config*
